@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		904964C21CEBD7B400602379 /* Dose+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 904964BB1CEBD7B400602379 /* Dose+CoreDataProperties.m */; };
+		904964C31CEBD7B400602379 /* Dose.m in Sources */ = {isa = PBXBuildFile; fileRef = 904964BD1CEBD7B400602379 /* Dose.m */; };
+		904964C41CEBD7B400602379 /* Medication+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 904964BF1CEBD7B400602379 /* Medication+CoreDataProperties.m */; };
+		904964C51CEBD7B400602379 /* Medication.m in Sources */ = {isa = PBXBuildFile; fileRef = 904964C11CEBD7B400602379 /* Medication.m */; };
 		909F735E1CE683020085C617 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F735D1CE683020085C617 /* main.m */; };
 		909F73611CE683020085C617 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73601CE683020085C617 /* AppDelegate.m */; };
-		909F73641CE683030085C617 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73631CE683030085C617 /* ViewController.m */; };
 		909F73671CE683030085C617 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 909F73651CE683030085C617 /* Main.storyboard */; };
 		909F736A1CE683030085C617 /* MedicationLog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 909F73681CE683030085C617 /* MedicationLog.xcdatamodeld */; };
 		909F736C1CE683030085C617 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 909F736B1CE683030085C617 /* Assets.xcassets */; };
 		909F736F1CE683030085C617 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 909F736D1CE683030085C617 /* LaunchScreen.storyboard */; };
 		909F737A1CE683030085C617 /* MedicationLogTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73791CE683030085C617 /* MedicationLogTests.m */; };
 		909F73851CE683030085C617 /* MedicationLogUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73841CE683030085C617 /* MedicationLogUITests.m */; };
+		909F73941CE685DB0085C617 /* DosesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73931CE685DB0085C617 /* DosesTableViewController.m */; };
+		909F73BB1CE6B55E0085C617 /* DoseDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73BA1CE6B55E0085C617 /* DoseDetailTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,12 +41,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		904964BA1CEBD7B400602379 /* Dose+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Dose+CoreDataProperties.h"; sourceTree = "<group>"; };
+		904964BB1CEBD7B400602379 /* Dose+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Dose+CoreDataProperties.m"; sourceTree = "<group>"; };
+		904964BC1CEBD7B400602379 /* Dose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dose.h; sourceTree = "<group>"; };
+		904964BD1CEBD7B400602379 /* Dose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dose.m; sourceTree = "<group>"; };
+		904964BE1CEBD7B400602379 /* Medication+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Medication+CoreDataProperties.h"; sourceTree = "<group>"; };
+		904964BF1CEBD7B400602379 /* Medication+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Medication+CoreDataProperties.m"; sourceTree = "<group>"; };
+		904964C01CEBD7B400602379 /* Medication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Medication.h; sourceTree = "<group>"; };
+		904964C11CEBD7B400602379 /* Medication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Medication.m; sourceTree = "<group>"; };
 		909F73591CE683020085C617 /* MedicationLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MedicationLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		909F735D1CE683020085C617 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		909F735F1CE683020085C617 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		909F73601CE683020085C617 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		909F73621CE683030085C617 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		909F73631CE683030085C617 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		909F73661CE683030085C617 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		909F73691CE683030085C617 /* MedicationLog.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MedicationLog.xcdatamodel; sourceTree = "<group>"; };
 		909F736B1CE683030085C617 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,6 +64,10 @@
 		909F73801CE683030085C617 /* MedicationLogUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MedicationLogUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		909F73841CE683030085C617 /* MedicationLogUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MedicationLogUITests.m; sourceTree = "<group>"; };
 		909F73861CE683030085C617 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		909F73921CE685DB0085C617 /* DosesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DosesTableViewController.h; sourceTree = "<group>"; };
+		909F73931CE685DB0085C617 /* DosesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DosesTableViewController.m; sourceTree = "<group>"; };
+		909F73B91CE6B55E0085C617 /* DoseDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoseDetailTableViewController.h; sourceTree = "<group>"; };
+		909F73BA1CE6B55E0085C617 /* DoseDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoseDetailTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +95,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		904964C61CEBD7C100602379 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				904964BA1CEBD7B400602379 /* Dose+CoreDataProperties.h */,
+				904964BB1CEBD7B400602379 /* Dose+CoreDataProperties.m */,
+				904964BC1CEBD7B400602379 /* Dose.h */,
+				904964BD1CEBD7B400602379 /* Dose.m */,
+				904964BE1CEBD7B400602379 /* Medication+CoreDataProperties.h */,
+				904964BF1CEBD7B400602379 /* Medication+CoreDataProperties.m */,
+				904964C01CEBD7B400602379 /* Medication.h */,
+				904964C11CEBD7B400602379 /* Medication.m */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
 		909F73501CE683020085C617 = {
 			isa = PBXGroup;
 			children = (
@@ -105,9 +135,12 @@
 			children = (
 				909F735F1CE683020085C617 /* AppDelegate.h */,
 				909F73601CE683020085C617 /* AppDelegate.m */,
-				909F73621CE683030085C617 /* ViewController.h */,
-				909F73631CE683030085C617 /* ViewController.m */,
+				909F73921CE685DB0085C617 /* DosesTableViewController.h */,
+				909F73931CE685DB0085C617 /* DosesTableViewController.m */,
+				909F73B91CE6B55E0085C617 /* DoseDetailTableViewController.h */,
+				909F73BA1CE6B55E0085C617 /* DoseDetailTableViewController.m */,
 				909F73651CE683030085C617 /* Main.storyboard */,
+				904964C61CEBD7C100602379 /* Core Data */,
 				909F736B1CE683030085C617 /* Assets.xcassets */,
 				909F736D1CE683030085C617 /* LaunchScreen.storyboard */,
 				909F73701CE683030085C617 /* Info.plist */,
@@ -273,9 +306,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				909F73641CE683030085C617 /* ViewController.m in Sources */,
 				909F736A1CE683030085C617 /* MedicationLog.xcdatamodeld in Sources */,
+				909F73BB1CE6B55E0085C617 /* DoseDetailTableViewController.m in Sources */,
+				904964C41CEBD7B400602379 /* Medication+CoreDataProperties.m in Sources */,
+				904964C51CEBD7B400602379 /* Medication.m in Sources */,
+				909F73941CE685DB0085C617 /* DosesTableViewController.m in Sources */,
+				904964C31CEBD7B400602379 /* Dose.m in Sources */,
 				909F73611CE683020085C617 /* AppDelegate.m in Sources */,
+				904964C21CEBD7B400602379 /* Dose+CoreDataProperties.m in Sources */,
 				909F735E1CE683020085C617 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -502,6 +540,7 @@
 				909F738B1CE683030085C617 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		909F738C1CE683030085C617 /* Build configuration list for PBXNativeTarget "MedicationLogTests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +549,7 @@
 				909F738E1CE683030085C617 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		909F738F1CE683030085C617 /* Build configuration list for PBXNativeTarget "MedicationLogUITests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +558,7 @@
 				909F73911CE683030085C617 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

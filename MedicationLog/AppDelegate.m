@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "DosesTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+    DosesTableViewController *controller = (DosesTableViewController *)navigationController.topViewController;
+    controller.managedObjectContext = self.managedObjectContext;
+    
     return YES;
 }
 
