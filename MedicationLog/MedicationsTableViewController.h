@@ -1,15 +1,15 @@
 //
-//  DosesTableViewController.h
+//  MedicationsTableViewController.h
 //  MedicationLog
 //
-//  Created by Morgan Davison on 5/13/16.
+//  Created by Morgan Davison on 5/18/16.
 //  Copyright © 2016 Morgan Davison. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface DosesTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface MedicationsTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

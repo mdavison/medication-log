@@ -7,12 +7,21 @@
 //
 
 #import "DoseDetailTableViewController.h"
+#import "Dose.h"
+#import "MedicationsTableViewController.h"
+#import "DoseDetailMedicationTableViewCell.h"
+#import "DatePickerTableViewCell.h"
 
 @interface DoseDetailTableViewController ()
 
 @end
 
 @implementation DoseDetailTableViewController
+
+NSString *datePickerCellReuseIdentifier = @"DatePickerCell";
+NSString *doseDetailMedicationCellReuseIdentifier = @"DoseDetailMedicationCell";
+NSString *manageMedicationsCellReuseIdentifier = @"ManageMedications";
+NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,6 +31,10 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+//    [self.tableView registerClass: [DatePickerTableViewCell class] forCellReuseIdentifier:datePickerCellReuseIdentifier];
+//    [self.tableView registerClass: [DoseDetailMedicationTableViewCell class] forCellReuseIdentifier:doseDetailMedicationCellReuseIdentifier];
+//    [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:manageMedicationsCellReuseIdentifier];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,22 +44,29 @@
 
 #pragma mark - Table view data source
 
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//    return 1;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return 1;
-//}
-//
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MedicationCell" forIndexPath:indexPath];
-//    
-//    // Configure the cell...
-//    
-//    return cell;
-//}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+    // TODO: section 1 returns medications count
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    switch ([indexPath section]) {
+        case 0:
+            return (DatePickerTableViewCell *)[tableView dequeueReusableCellWithIdentifier:datePickerCellReuseIdentifier forIndexPath:indexPath];
+        case 1:
+            return (DoseDetailMedicationTableViewCell *)[tableView dequeueReusableCellWithIdentifier:doseDetailMedicationCellReuseIdentifier forIndexPath:indexPath];
+        case 2:
+            return [tableView dequeueReusableCellWithIdentifier:manageMedicationsCellReuseIdentifier forIndexPath:indexPath];
+        default:
+            return [tableView dequeueReusableCellWithIdentifier:manageMedicationsCellReuseIdentifier forIndexPath:indexPath];
+    }
+}
 
 
 /*
@@ -83,34 +103,52 @@
 }
 */
 
-/*
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch ([indexPath section]) {
+        case 0:
+            return 217;
+        default:
+            return UITableViewAutomaticDimension;
+    }
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([[segue identifier] isEqualToString:manageMedicationsSegueIdentifier]) {
+        // if destination view controller is embedded in navigation controller
+//        UINavigationController *navController = [segue destinationViewController];
+//        MedicationsTableViewController *controller = (MedicationsTableViewController *)navController.topViewController;
+        
+        MedicationsTableViewController *controller = (MedicationsTableViewController *)[segue destinationViewController];
+        
+        controller.managedObjectContext = self.managedObjectContext;
+    }
 }
-*/
+
 
 #pragma mark - Actions
 
 - (IBAction)cancelled:(id)sender {
-    NSLog(@"Pressed cancel button");
-    // dismiss view controller
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)saved:(id)sender {
-    NSLog(@"Pressed save button");
+- (IBAction)saved:(id)sender {    
+    Dose *newDose = [NSEntityDescription insertNewObjectForEntityForName:@"Dose" inManagedObjectContext:self.managedObjectContext];
+    newDose.amount = [NSNumber numberWithInt:1];
+    newDose.date = [NSDate date];
+    // TODO: newDose.medication = ?
+    // TODO: self.dose = newDose;
     
-    // LEFT OFF HERE
-    // Create some data
-    // need to create protocol
-    // create delegate
-    // set the delegate in the dosestable prepareForSegue
-    // call the delegate method here
-    // save the data in the delegate method of dosestableviewcontroller
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Error saving to CoreData: %@, %@", error, [error userInfo]);
+        abort();
+    }
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

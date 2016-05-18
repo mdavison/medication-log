@@ -1,20 +1,19 @@
 //
-//  DosesTableViewController.m
+//  MedicationsTableViewController.m
 //  MedicationLog
 //
-//  Created by Morgan Davison on 5/13/16.
+//  Created by Morgan Davison on 5/18/16.
 //  Copyright © 2016 Morgan Davison. All rights reserved.
 //
 
-#import "DosesTableViewController.h"
-#import "DoseDetailTableViewController.h"
+#import "MedicationsTableViewController.h"
+#import "MedicationDetailTableViewController.h"
 
-@interface DosesTableViewController ()
+@interface MedicationsTableViewController ()
 
 @end
 
-@implementation DosesTableViewController
-
+@implementation MedicationsTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,7 +22,7 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,7 +41,6 @@
     return [sectionInfo numberOfObjects];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MedicationCell" forIndexPath:indexPath];
     NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
@@ -51,29 +49,20 @@
     return cell;
 }
 
-
+/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
+*/
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath: indexPath]];
-        
-        NSError *error = nil;
-        if (![context save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-        
-        //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];        
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
@@ -93,26 +82,24 @@
 }
 */
 
-- (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object {
-    cell.textLabel.text = [[object valueForKey:@"date"] description];
-}
-
-
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([[segue identifier] isEqualToString:@"AddDose"]) {
+    if ([[segue identifier] isEqualToString:@"AddMedication"]) {
         UINavigationController *navController = [segue destinationViewController];
-        DoseDetailTableViewController *controller = (DoseDetailTableViewController *)navController.topViewController;
-        
+        MedicationDetailTableViewController *controller = (MedicationDetailTableViewController *)[navController topViewController];
         controller.managedObjectContext = self.managedObjectContext;
-    } else if ([[segue identifier] isEqualToString:@"EditDose"]) {
-        
     }
-    
+}
+
+
+#pragma mark - Helper Methods
+
+- (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object {
+    cell.textLabel.text = [[object valueForKey:@"name"] description];
 }
 
 
@@ -126,20 +113,20 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Dose" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Medication" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
     
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Doses"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Medications"];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     
@@ -215,7 +202,6 @@
  [self.tableView reloadData];
  }
  */
-
 
 
 @end

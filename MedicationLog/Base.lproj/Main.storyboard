@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Doses List-->
@@ -56,85 +57,80 @@
         <scene sceneID="QgI-6X-bfh">
             <objects>
                 <tableViewController id="D4B-CE-zQE" customClass="DoseDetailTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="7f9-7s-h9I">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="7f9-7s-h9I">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <sections>
-                            <tableViewSection headerTitle="Select Date and Time" id="SEU-ub-Fwn">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DatePickerCell" rowHeight="217" id="LlZ-Ca-3dI">
-                                        <rect key="frame" x="0.0" y="113.5" width="600" height="217"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LlZ-Ca-3dI" id="JHR-f0-IQZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="216.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="lLx-5m-BOR">
-                                                    <rect key="frame" x="140" y="0.5" width="320" height="216"/>
-                                                    <date key="date" timeIntervalSinceReferenceDate="485229322.81172597">
-                                                        <!--2016-05-18 01:55:22 +0000-->
-                                                    </date>
-                                                </datePicker>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="lLx-5m-BOR" firstAttribute="centerY" secondItem="JHR-f0-IQZ" secondAttribute="centerY" id="EwR-jq-7Ib"/>
-                                                <constraint firstItem="lLx-5m-BOR" firstAttribute="centerX" secondItem="JHR-f0-IQZ" secondAttribute="centerX" id="mC0-j5-ag3"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Select Medications" id="rnQ-gp-kko">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MedicationsListCell" textLabel="tcS-vq-hO2" detailTextLabel="R4I-OU-uBD" style="IBUITableViewCellStyleValue1" id="r3P-65-4SN">
-                                        <rect key="frame" x="0.0" y="380.5" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r3P-65-4SN" id="LYg-DS-pAq">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tcS-vq-hO2">
-                                                    <rect key="frame" x="15" y="12" width="31.5" height="19.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="R4I-OU-uBD">
-                                                    <rect key="frame" x="543.5" y="12" width="41.5" height="19.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Add or Edit Medications" id="8mh-VR-vrL">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MedicationsCell" textLabel="ny5-6P-P2b" style="IBUITableViewCellStyleDefault" id="SMN-hC-nBm">
-                                        <rect key="frame" x="0.0" y="474.5" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SMN-hC-nBm" id="9Ck-xH-cfb">
-                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Manage Medications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ny5-6P-P2b">
-                                                    <rect key="frame" x="15" y="0.0" width="550" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DatePickerCell" rowHeight="217" id="LlZ-Ca-3dI" customClass="DatePickerTableViewCell">
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="217"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LlZ-Ca-3dI" id="JHR-f0-IQZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="216.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="lLx-5m-BOR">
+                                            <rect key="frame" x="140" y="0.5" width="320" height="216"/>
+                                            <date key="date" timeIntervalSinceReferenceDate="485229322.81172597">
+                                                <!--2016-05-18 01:55:22 +0000-->
+                                            </date>
+                                        </datePicker>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="lLx-5m-BOR" firstAttribute="centerY" secondItem="JHR-f0-IQZ" secondAttribute="centerY" id="EwR-jq-7Ib"/>
+                                        <constraint firstItem="lLx-5m-BOR" firstAttribute="centerX" secondItem="JHR-f0-IQZ" secondAttribute="centerX" id="mC0-j5-ag3"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="datePicker" destination="lLx-5m-BOR" id="DeI-hC-5VA"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DoseDetailMedicationCell" textLabel="cbV-v4-aNH" detailTextLabel="05o-bq-Aee" style="IBUITableViewCellStyleValue1" id="mSs-nW-Jel" customClass="DoseDetailMedicationTableViewCell">
+                                <rect key="frame" x="0.0" y="330.5" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mSs-nW-Jel" id="SBS-sc-OGD">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cbV-v4-aNH">
+                                            <rect key="frame" x="15" y="12" width="31.5" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="05o-bq-Aee">
+                                            <rect key="frame" x="543.5" y="12" width="41.5" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ManageMedications" textLabel="gWf-Ic-5dr" style="IBUITableViewCellStyleDefault" id="Bg1-jO-dbg">
+                                <rect key="frame" x="0.0" y="374.5" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bg1-jO-dbg" id="L9U-1h-moV">
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Manage Medications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gWf-Ic-5dr">
+                                            <rect key="frame" x="15" y="0.0" width="550" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="0DA-sG-DKQ" kind="show" identifier="ManageMedications" id="SaI-eP-eAE"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="D4B-CE-zQE" id="ASI-Vw-Lbo"/>
                             <outlet property="delegate" destination="D4B-CE-zQE" id="1zW-lB-mjU"/>
@@ -156,6 +152,114 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jwP-aP-C9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2811" y="-430"/>
+        </scene>
+        <!--Medications-->
+        <scene sceneID="SYx-5E-kUv">
+            <objects>
+                <tableViewController id="0DA-sG-DKQ" customClass="MedicationsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="r7h-bF-RCK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MedicationCell" id="w6s-cd-t3s">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w6s-cd-t3s" id="UZT-ps-66N">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0DA-sG-DKQ" id="CRQ-d9-X89"/>
+                            <outlet property="delegate" destination="0DA-sG-DKQ" id="R1c-AS-GZ5"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Medications" id="7lO-7x-tft">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="p2E-nn-jX7">
+                            <connections>
+                                <segue destination="07c-vd-uxf" kind="showDetail" identifier="AddMedication" id="pFl-4E-C5i"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tz7-6n-PEU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3452" y="-430"/>
+        </scene>
+        <!--Medication Details-->
+        <scene sceneID="x2y-sO-SnR">
+            <objects>
+                <tableViewController id="lSx-i4-1S0" customClass="MedicationDetailTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="YeY-8n-xHS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="U3Q-ME-5u3">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="WYS-aT-Q2k">
+                                        <rect key="frame" x="0.0" y="99" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WYS-aT-Q2k" id="hJP-Nd-M4g">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Required" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="beC-sC-8AJ">
+                                                    <rect key="frame" x="136" y="7" width="456" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medication Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAl-cP-uEo">
+                                                    <rect key="frame" x="8" y="12.5" width="120" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="beC-sC-8AJ" firstAttribute="centerY" secondItem="hJP-Nd-M4g" secondAttribute="centerY" id="3tK-CP-LS7"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="beC-sC-8AJ" secondAttribute="trailing" id="HQg-Pu-G10"/>
+                                                <constraint firstItem="lAl-cP-uEo" firstAttribute="leading" secondItem="hJP-Nd-M4g" secondAttribute="leadingMargin" id="R7J-TP-RoR"/>
+                                                <constraint firstItem="lAl-cP-uEo" firstAttribute="centerY" secondItem="hJP-Nd-M4g" secondAttribute="centerY" id="jbM-pR-HVN"/>
+                                                <constraint firstItem="beC-sC-8AJ" firstAttribute="leading" secondItem="lAl-cP-uEo" secondAttribute="trailing" constant="8" symbolic="YES" id="yOs-RJ-zpR"/>
+                                                <constraint firstItem="beC-sC-8AJ" firstAttribute="leading" secondItem="lAl-cP-uEo" secondAttribute="trailing" constant="8" symbolic="YES" id="yPp-Tp-sfb"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="yPp-Tp-sfb"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="lSx-i4-1S0" id="4SG-Af-opA"/>
+                            <outlet property="delegate" destination="lSx-i4-1S0" id="ayS-92-6M4"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Medication Details" id="Mq7-7F-ajI">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="iWM-TC-7em">
+                            <connections>
+                                <action selector="cancel:" destination="lSx-i4-1S0" id="GXd-jm-7Q7"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="CMO-27-TRc">
+                            <connections>
+                                <action selector="save:" destination="lSx-i4-1S0" id="POr-Sz-tWa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="nameTextField" destination="beC-sC-8AJ" id="570-zZ-6uj"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hGS-dJ-o8t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4767" y="-430"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PIb-rO-ebc">
@@ -193,8 +297,26 @@
             </objects>
             <point key="canvasLocation" x="2161" y="-430"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="CGB-xF-i2y">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="07c-vd-uxf" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gsJ-TV-f5k">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="lSx-i4-1S0" kind="relationship" relationship="rootViewController" id="hp9-eJ-wYd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GMW-0O-kCR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4106" y="-430"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="i3s-4i-98Q"/>
+        <segue reference="w45-yy-fFe"/>
     </inferredMetricsTieBreakers>
 </document>
