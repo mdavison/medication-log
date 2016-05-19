@@ -49,6 +49,7 @@
     return cell;
 }
 
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -62,7 +63,15 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];        
+        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        
+        NSError *error = nil;
+        if (![context save:&error]) {
+            // Replace this implementation with code to handle the error appropriately.
+            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
@@ -91,6 +100,8 @@
     if ([[segue identifier] isEqualToString:@"AddMedication"]) {
         UINavigationController *navController = [segue destinationViewController];
         MedicationDetailTableViewController *controller = (MedicationDetailTableViewController *)[navController topViewController];
+        
+        controller.fetchedResultsController = self.fetchedResultsController;
         controller.managedObjectContext = self.managedObjectContext;
     }
 }

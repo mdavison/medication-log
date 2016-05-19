@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface MedicationDetailTableViewController : UITableViewController
+@interface MedicationDetailTableViewController : UITableViewController <UITextFieldDelegate>
 
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 

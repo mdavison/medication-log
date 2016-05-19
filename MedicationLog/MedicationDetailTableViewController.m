@@ -86,6 +86,18 @@
 }
 */
 
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.nameTextField resignFirstResponder];
+    return true;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    //
+}
+
 /*
 #pragma mark - Navigation
 
@@ -98,21 +110,63 @@
 
 #pragma mark - Actions 
 
--(void)cancel:(id)sender {
+- (void)cancel:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
--(void)save:(id)sender {
-    Medication *medication = [NSEntityDescription insertNewObjectForEntityForName:@"Medication" inManagedObjectContext:self.managedObjectContext];
-    medication.name = self.nameTextField.text;
-    
-    NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Error saving to CoreData: %@, %@", error, [error userInfo]);
-        abort();
+- (void)save:(id)sender {
+    if ([self medicationNameIsValid]) {
+        Medication *medication = [NSEntityDescription insertNewObjectForEntityForName:@"Medication" inManagedObjectContext:self.managedObjectContext];
+        medication.name = self.nameTextField.text;
+        
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Error saving to CoreData: %@, %@", error, [error userInfo]);
+            abort();
+        }
+        
+        [self dismissViewControllerAnimated:true completion:nil];
+    }
+}
+
+
+#pragma mark - Helper Methods
+
+- (BOOL)medicationNameIsValid {
+    // Make sure medication is not blank
+    if ([self.nameTextField.text length] == 0) {
+        return false;
     }
     
-    [self dismissViewControllerAnimated:true completion:nil];
+    // Make sure it's not blank after trimming whitespace
+    NSCharacterSet *whitespaceSet = [NSCharacterSet whitespaceCharacterSet];
+    NSString *trimmedString = [self.nameTextField.text stringByTrimmingCharactersInSet:whitespaceSet];
+    if ([trimmedString length] == 0) {
+        [self showInvalidNameAlertWithTitle:NSLocalizedString(@"Oops!", @"") andMessage:NSLocalizedString(@"Name can't be blank.", @"")];
+        self.nameTextField.text = @"";
+        
+        return false;
+    }
+    
+    // Make sure medication is not duplicate
+    for (Medication *medication in [self.fetchedResultsController fetchedObjects]) {
+        if (self.nameTextField.text == medication.name) {
+            [self showInvalidNameAlertWithTitle:NSLocalizedString(@"Oops!", @"") andMessage:NSLocalizedString(@"That name already exists.", @"")];
+            self.nameTextField.text = @"";
+
+            return false;
+        }
+    }
+    
+    return true;
 }
+
+- (void)showInvalidNameAlertWithTitle:(NSString *)title andMessage:(NSString *)message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 
 @end

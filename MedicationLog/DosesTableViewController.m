@@ -94,7 +94,21 @@
 */
 
 - (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object {
-    cell.textLabel.text = [[object valueForKey:@"date"] description];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    dateFormatter.timeStyle = NSDateFormatterShortStyle;
+    
+    NSDate *doseDate = [object valueForKey:@"date"];
+    
+    NSString *dateString = [dateFormatter stringFromDate:doseDate];
+    NSString *medicationName = [[object valueForKey:@"medication"] name];
+    NSString *doseAmount = [[object valueForKey:@"amount"] description];
+    
+    cell.textLabel.text = [[[[[dateString stringByAppendingString:@" "]
+                            stringByAppendingString:@" "]
+                           stringByAppendingString:doseAmount]
+                           stringByAppendingString:@" "]
+                           stringByAppendingString:medicationName];
 }
 
 
@@ -136,6 +150,9 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
     
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    
+    // Relationship paths for prefetching
+    fetchRequest.relationshipKeyPathsForPrefetching = [NSArray arrayWithObject:@"medication"];
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".

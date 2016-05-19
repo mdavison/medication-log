@@ -11,8 +11,13 @@
 #import "MedicationsTableViewController.h"
 #import "DoseDetailMedicationTableViewCell.h"
 #import "DatePickerTableViewCell.h"
+#import "Medication.h"
 
 @interface DoseDetailTableViewController ()
+
+@property (strong, nonatomic) NSArray *medicationsArray;
+@property (strong, nonatomic) NSMutableDictionary *medicationsDoses;
+@property (weak, nonatomic) UIDatePicker *datePicker;
 
 @end
 
@@ -23,18 +28,17 @@ NSString *doseDetailMedicationCellReuseIdentifier = @"DoseDetailMedicationCell";
 NSString *manageMedicationsCellReuseIdentifier = @"ManageMedications";
 NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
+
+    [self setMedicationsArray];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-//    [self.tableView registerClass: [DatePickerTableViewCell class] forCellReuseIdentifier:datePickerCellReuseIdentifier];
-//    [self.tableView registerClass: [DoseDetailMedicationTableViewCell class] forCellReuseIdentifier:doseDetailMedicationCellReuseIdentifier];
-//    [self.tableView registerClass: [UITableViewCell class] forCellReuseIdentifier:manageMedicationsCellReuseIdentifier];
+    [self setMedicationsDoses];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,23 +53,67 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
-    // TODO: section 1 returns medications count
+    switch (section) {
+        case 0:
+            return 1;
+        case 1:
+            return self.medicationsArray.count;
+        case 2:
+            return 1;
+        default:
+            return 1;
+    }
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     switch ([indexPath section]) {
-        case 0:
-            return (DatePickerTableViewCell *)[tableView dequeueReusableCellWithIdentifier:datePickerCellReuseIdentifier forIndexPath:indexPath];
-        case 1:
-            return (DoseDetailMedicationTableViewCell *)[tableView dequeueReusableCellWithIdentifier:doseDetailMedicationCellReuseIdentifier forIndexPath:indexPath];
+        case 0: {
+            DatePickerTableViewCell *cell = (DatePickerTableViewCell *)[tableView dequeueReusableCellWithIdentifier:datePickerCellReuseIdentifier forIndexPath:indexPath];
+            self.datePicker = cell.datePicker;
+            //return (DatePickerTableViewCell *)[tableView dequeueReusableCellWithIdentifier:datePickerCellReuseIdentifier forIndexPath:indexPath];
+            return cell;
+        }
+        case 1: {
+            DoseDetailMedicationTableViewCell *cell = (DoseDetailMedicationTableViewCell *)[tableView dequeueReusableCellWithIdentifier:doseDetailMedicationCellReuseIdentifier forIndexPath:indexPath];
+            NSString *medicationNameForCell = [self.medicationsArray[indexPath.row] name];
+            cell.textLabel.text = medicationNameForCell;
+            
+            if (self.medicationsDoses[medicationNameForCell] == [NSNumber numberWithInt:0] || self.medicationsDoses[medicationNameForCell] == nil) {
+                cell.detailTextLabel.text = @" ";
+            } else {
+                cell.detailTextLabel.text = @"%i", [self.medicationsDoses count];
+            }
+            
+            return cell;
+        }
         case 2:
             return [tableView dequeueReusableCellWithIdentifier:manageMedicationsCellReuseIdentifier forIndexPath:indexPath];
         default:
             return [tableView dequeueReusableCellWithIdentifier:manageMedicationsCellReuseIdentifier forIndexPath:indexPath];
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Get the selected cell
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    // Get the medication from the selected row
+    NSString *medicationNameForCell = [self.medicationsArray[indexPath.row] name];
+    
+    int incrementedValue = 0;
+    // TODO: handle existing dose
+    
+    if (self.medicationsDoses[medicationNameForCell] == [NSNumber numberWithInt:0] ) { // first time incrementing
+        incrementedValue = 1;
+    } else { // add to existing increment
+        incrementedValue = [self.medicationsDoses[medicationNameForCell] intValue] + 1;
+    }
+    
+    self.medicationsDoses[medicationNameForCell] = [NSNumber numberWithInt:incrementedValue];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", incrementedValue];
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
@@ -138,11 +186,24 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 }
 
 - (IBAction)saved:(id)sender {    
-    Dose *newDose = [NSEntityDescription insertNewObjectForEntityForName:@"Dose" inManagedObjectContext:self.managedObjectContext];
-    newDose.amount = [NSNumber numberWithInt:1];
-    newDose.date = [NSDate date];
-    // TODO: newDose.medication = ?
-    // TODO: self.dose = newDose;
+    // loop through each item in medicationsdoses
+    for (NSString *medicationName in self.medicationsDoses) {
+        NSNumber *medicationQuantity = [self.medicationsDoses objectForKey:medicationName];
+        
+        if ([medicationQuantity intValue] > 0) {
+            Medication *medication = [self getMedicationObjectForName:medicationName];
+            
+            if (medication != nil) {
+                Dose *newDose = [NSEntityDescription insertNewObjectForEntityForName:@"Dose" inManagedObjectContext:self.managedObjectContext];
+                newDose.amount = medicationQuantity;
+                // TODO: get date from datepicker
+                //newDose.date = [NSDate date];
+                newDose.date = self.datePicker.date;
+                newDose.medication = medication;
+            }
+        }
+    }
+    // TODO: self.dose = newDose; ?
     
     NSError *error = nil;
     if (![self.managedObjectContext save:&error]) {
@@ -152,5 +213,41 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+#pragma mark - Helper Methods
+
+- (void)setMedicationsArray {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"Medication" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    [fetchRequest setSortDescriptors:@[sortDescriptor]];
+    
+    self.medicationsArray = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+}
+
+- (void)setMedicationsDoses {
+    // Add all medications to medicationsDoses dictionary and
+    // set initial value to 0
+    self.medicationsDoses = [NSMutableDictionary dictionary];
+    for (Medication *medication in self.medicationsArray) {
+        self.medicationsDoses[medication.name] = [NSNumber numberWithInt:0];
+    }
+}
+
+- (Medication *)getMedicationObjectForName:(NSString *)name {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription
+                                   entityForName:@"Medication" inManagedObjectContext:self.managedObjectContext];
+    fetchRequest.entity = entity;
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
+    
+    NSArray *medications = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    
+    return medications.firstObject;
+}
+
 
 @end
