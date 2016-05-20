@@ -72,7 +72,6 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
         case 0: {
             DatePickerTableViewCell *cell = (DatePickerTableViewCell *)[tableView dequeueReusableCellWithIdentifier:datePickerCellReuseIdentifier forIndexPath:indexPath];
             self.datePicker = cell.datePicker;
-            //return (DatePickerTableViewCell *)[tableView dequeueReusableCellWithIdentifier:datePickerCellReuseIdentifier forIndexPath:indexPath];
             return cell;
         }
         case 1: {
@@ -184,18 +183,11 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     if ([[segue identifier] isEqualToString:manageMedicationsSegueIdentifier]) {
-        // if destination view controller is embedded in navigation controller
-//        UINavigationController *navController = [segue destinationViewController];
-//        MedicationsTableViewController *controller = (MedicationsTableViewController *)navController.topViewController;
-        
         MedicationsTableViewController *controller = (MedicationsTableViewController *)[segue destinationViewController];
         
-        controller.managedObjectContext = self.managedObjectContext;
+        controller.coreDataStack = self.coreDataStack;
         controller.delegate = self;
     }
 }
@@ -211,7 +203,7 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 }
 
 - (IBAction)saved:(id)sender {    
-    // loop through each item in medicationsdoses
+    // Save each item in medicationsDoses as a separate dose
     for (NSString *medicationName in self.medicationsDoses) {
         NSNumber *medicationQuantity = [self.medicationsDoses objectForKey:medicationName];
         
@@ -219,7 +211,7 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
             Medication *medication = [self getMedicationObjectForName:medicationName];
             
             if (medication != nil) {
-                Dose *newDose = [NSEntityDescription insertNewObjectForEntityForName:@"Dose" inManagedObjectContext:self.managedObjectContext];
+                Dose *newDose = [NSEntityDescription insertNewObjectForEntityForName:@"Dose" inManagedObjectContext:self.coreDataStack.managedObjectContext];
                 newDose.amount = medicationQuantity;
                 newDose.date = self.datePicker.date;
                 newDose.medication = medication;
@@ -227,11 +219,7 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
         }
     }
     
-    NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Error saving to CoreData: %@, %@", error, [error userInfo]);
-        abort();
-    }
+    [self.coreDataStack saveContext];
     
     // Call delegate method, pass in medicationsArray
     [self.delegate DoseDetailTableViewController:self DidFinishWithMedications:self.medicationsArray];
@@ -253,12 +241,12 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 - (void)setMedicationsArray {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Medication" inManagedObjectContext:self.managedObjectContext];
+                                   entityForName:@"Medication" inManagedObjectContext:self.coreDataStack.managedObjectContext];
     [fetchRequest setEntity:entity];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     
-    self.medicationsArray = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    self.medicationsArray = [self.coreDataStack.managedObjectContext executeFetchRequest:fetchRequest error:nil];
 }
 
 - (void)setMedicationsDoses {
@@ -273,11 +261,12 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 - (Medication *)getMedicationObjectForName:(NSString *)name {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Medication" inManagedObjectContext:self.managedObjectContext];
+                                   entityForName:@"Medication" inManagedObjectContext:self.coreDataStack.managedObjectContext];
     fetchRequest.entity = entity;
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
     
-    NSArray *medications = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    // TODO: handle this error
+    NSArray *medications = [self.coreDataStack.managedObjectContext executeFetchRequest:fetchRequest error:nil];
     
     return medications.firstObject;
 }

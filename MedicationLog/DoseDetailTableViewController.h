@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "MedicationsTableViewController.h"
+#import "CoreDataStack.h"
 
 // Define protocol
 @class DoseDetailTableViewController;
@@ -18,7 +19,7 @@
 
 @interface DoseDetailTableViewController : UITableViewController <MedicationsTableViewControllerDelegate>
 
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) CoreDataStack *coreDataStack;
 @property (weak, nonatomic) id <DoseDetailTableViewControllerDelegate> delegate;
 
 -(IBAction)cancelled:(id)sender;

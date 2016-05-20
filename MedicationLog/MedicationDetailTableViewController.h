@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "Medication.h"
+#import "CoreDataStack.h"
 
 @interface MedicationDetailTableViewController : UITableViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) CoreDataStack *coreDataStack;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
 @property (strong, nonatomic) Medication *medicationToEdit;
 

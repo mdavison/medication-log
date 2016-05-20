@@ -20,12 +20,6 @@ NSString *editMedicationSegueIdentifier = @"EditMedication";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -81,13 +75,7 @@ NSString *editMedicationSegueIdentifier = @"EditMedication";
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
         
-        NSError *error = nil;
-        if (![context save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
+        [self.coreDataStack saveContext];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
@@ -109,15 +97,12 @@ NSString *editMedicationSegueIdentifier = @"EditMedication";
 
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
     UINavigationController *navController = [segue destinationViewController];
     MedicationDetailTableViewController *controller = (MedicationDetailTableViewController *)[navController topViewController];
     
     controller.fetchedResultsController = self.fetchedResultsController;
-    controller.managedObjectContext = self.managedObjectContext;
+    controller.coreDataStack = self.coreDataStack;
 
     if ([[segue identifier] isEqualToString:editMedicationSegueIdentifier]) {
         // Get selected medication
@@ -145,7 +130,7 @@ NSString *editMedicationSegueIdentifier = @"EditMedication";
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Medication" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Medication" inManagedObjectContext:self.coreDataStack.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
@@ -156,19 +141,24 @@ NSString *editMedicationSegueIdentifier = @"EditMedication";
     
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    //NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Medications"];
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.coreDataStack.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        NSLog(@"Unable to perform fetch for Dose %@, %@", error, [error userInfo]);
+        
+        // Alert user
+        UIAlertController *alertController = [UIAlertController
+                                              alertControllerWithTitle:[NSString localizedStringWithFormat:@"%@", @"Error"]
+                                              message:[NSString localizedStringWithFormat:@"%@", @"There was a problem loading the existing medications."]
+                                              preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //abort(); // Could abort here if need to generate crash log
+        }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
     }
     
     return _fetchedResultsController;

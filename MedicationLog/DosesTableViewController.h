@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "DoseDetailTableViewController.h"
+#import "CoreDataStack.h"
 
 @interface DosesTableViewController : UITableViewController <NSFetchedResultsControllerDelegate, DoseDetailTableViewControllerDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) CoreDataStack *coreDataStack;
 
 @end

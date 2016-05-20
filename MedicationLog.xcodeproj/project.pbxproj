@@ -15,6 +15,7 @@
 		904964F61CECDBF000602379 /* MedicationDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 904964F51CECDBF000602379 /* MedicationDetailTableViewController.m */; };
 		904964F91CECE81500602379 /* DoseDetailMedicationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 904964F81CECE81500602379 /* DoseDetailMedicationTableViewCell.m */; };
 		904964FC1CED065200602379 /* DatePickerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 904964FB1CED065200602379 /* DatePickerTableViewCell.m */; };
+		904964FE1CEFAFA200602379 /* CoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 904964FD1CEFAFA200602379 /* CoreDataStack.m */; };
 		909F735E1CE683020085C617 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F735D1CE683020085C617 /* main.m */; };
 		909F73611CE683020085C617 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73601CE683020085C617 /* AppDelegate.m */; };
 		909F73671CE683030085C617 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 909F73651CE683030085C617 /* Main.storyboard */; };
@@ -61,6 +62,8 @@
 		904964F81CECE81500602379 /* DoseDetailMedicationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoseDetailMedicationTableViewCell.m; sourceTree = "<group>"; };
 		904964FA1CED065200602379 /* DatePickerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatePickerTableViewCell.h; sourceTree = "<group>"; };
 		904964FB1CED065200602379 /* DatePickerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatePickerTableViewCell.m; sourceTree = "<group>"; };
+		904964FD1CEFAFA200602379 /* CoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataStack.m; sourceTree = "<group>"; };
+		904964FF1CEFB05800602379 /* CoreDataStack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataStack.h; sourceTree = "<group>"; };
 		909F73591CE683020085C617 /* MedicationLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MedicationLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		909F735D1CE683020085C617 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		909F735F1CE683020085C617 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -110,6 +113,8 @@
 		904964C61CEBD7C100602379 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				904964FF1CEFB05800602379 /* CoreDataStack.h */,
+				904964FD1CEFAFA200602379 /* CoreDataStack.m */,
 				904964BA1CEBD7B400602379 /* Dose+CoreDataProperties.h */,
 				904964BB1CEBD7B400602379 /* Dose+CoreDataProperties.m */,
 				904964BC1CEBD7B400602379 /* Dose.h */,
@@ -335,6 +340,7 @@
 				909F73941CE685DB0085C617 /* DosesTableViewController.m in Sources */,
 				904964C31CEBD7B400602379 /* Dose.m in Sources */,
 				909F73611CE683020085C617 /* AppDelegate.m in Sources */,
+				904964FE1CEFAFA200602379 /* CoreDataStack.m in Sources */,
 				904964C21CEBD7B400602379 /* Dose+CoreDataProperties.m in Sources */,
 				904964FC1CED065200602379 /* DatePickerTableViewCell.m in Sources */,
 				909F735E1CE683020085C617 /* main.m in Sources */,
