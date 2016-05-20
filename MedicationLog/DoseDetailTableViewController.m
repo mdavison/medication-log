@@ -29,15 +29,10 @@ NSString *manageMedicationsCellReuseIdentifier = @"ManageMedications";
 NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
 
     [self setMedicationsArray];
-    
     [self setMedicationsDoses];
 }
 
@@ -78,12 +73,7 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
             DoseDetailMedicationTableViewCell *cell = (DoseDetailMedicationTableViewCell *)[tableView dequeueReusableCellWithIdentifier:doseDetailMedicationCellReuseIdentifier forIndexPath:indexPath];
             NSString *medicationNameForCell = [self.medicationsArray[indexPath.row] name];
             cell.textLabel.text = medicationNameForCell;
-            
-            if (self.medicationsDoses[medicationNameForCell] == [NSNumber numberWithInt:0] || self.medicationsDoses[medicationNameForCell] == nil) {
-                cell.detailTextLabel.text = @" ";
-            } else {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.medicationsDoses count]];
-            }
+            cell.detailTextLabel.text = @" ";
             
             return cell;
         }
@@ -232,6 +222,7 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 
 - (void)medicationsTableViewControllerDidUpdate:(MedicationsTableViewController *)controller {
     [self setMedicationsArray];
+    [self setMedicationsDoses];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:true];
 }
 
@@ -253,6 +244,7 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
     // Add all medications to medicationsDoses dictionary and
     // set initial value to 0
     self.medicationsDoses = [NSMutableDictionary dictionary];
+    
     for (Medication *medication in self.medicationsArray) {
         self.medicationsDoses[medication.name] = [NSNumber numberWithInt:0];
     }
@@ -265,8 +257,22 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
     fetchRequest.entity = entity;
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
     
-    // TODO: handle this error
-    NSArray *medications = [self.coreDataStack.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    NSError *error = nil;
+    NSArray *medications = [self.coreDataStack.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if (error != nil) {
+        // Alert user
+        UIAlertController *alertController = [UIAlertController
+                                              alertControllerWithTitle:[NSString localizedStringWithFormat:@"%@", @"Error"]
+                                              message:[NSString localizedStringWithFormat:@"%@", @"There was a problem saving the dose."]
+                                              preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //abort(); // Could abort here if need to generate crash log
+        }]];
+
+        [self presentViewController:alertController animated:YES completion:nil];
+
+    }
     
     return medications.firstObject;
 }

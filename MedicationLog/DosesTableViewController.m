@@ -149,7 +149,7 @@ NSString *addDoseSegueIdentifier = @"AddDose";
         // Alert user
         UIAlertController *alertController = [UIAlertController
                                               alertControllerWithTitle:[NSString localizedStringWithFormat:@"%@", @"Error"]
-                                              message:[NSString localizedStringWithFormat:@"%@", @"I was unable to load your data."]
+                                              message:[NSString localizedStringWithFormat:@"%@", @"There was a problem loading your data."]
                                               preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             //abort(); // Could abort here if need to generate crash log
