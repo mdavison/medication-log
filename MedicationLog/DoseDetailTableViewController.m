@@ -150,6 +150,28 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 }
 */
 
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewRowAction *button = [UITableViewRowAction
+        rowActionWithStyle:UITableViewRowActionStyleDefault
+        title:@"Clear"
+        handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+                                        
+            // Get the selected cell
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            
+            // Get the medication name
+            NSString *selectedMedication = [self.medicationsArray[indexPath.row] name];
+            
+            self.medicationsDoses[selectedMedication] = 0;
+            cell.detailTextLabel.text = @" ";
+            [self.tableView setEditing:NO];
+    }];
+    
+    button.backgroundColor = [UIColor orangeColor];
+    
+    return [[NSArray alloc] initWithObjects:button, nil];
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch ([indexPath section]) {
         case 0:
