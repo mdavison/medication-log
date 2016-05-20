@@ -78,9 +78,6 @@
     return true;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    //
-}
 
 /*
 #pragma mark - Navigation

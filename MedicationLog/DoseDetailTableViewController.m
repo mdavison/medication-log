@@ -83,7 +83,7 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
             if (self.medicationsDoses[medicationNameForCell] == [NSNumber numberWithInt:0] || self.medicationsDoses[medicationNameForCell] == nil) {
                 cell.detailTextLabel.text = @" ";
             } else {
-                cell.detailTextLabel.text = @"%i", [self.medicationsDoses count];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[self.medicationsDoses count]];
             }
             
             return cell;
