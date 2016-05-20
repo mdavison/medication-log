@@ -7,7 +7,7 @@
     </entity>
     <entity name="Medication" representedClassName="Medication" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="doses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dose" inverseName="medication" inverseEntity="Dose" syncable="YES"/>
+        <relationship name="doses" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Dose" inverseName="medication" inverseEntity="Dose" syncable="YES"/>
     </entity>
     <elements>
         <element name="Medication" positionX="-45" positionY="0" width="128" height="75"/>

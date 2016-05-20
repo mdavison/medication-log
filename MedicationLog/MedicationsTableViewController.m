@@ -15,6 +15,9 @@
 
 @implementation MedicationsTableViewController
 
+NSString *addMedicationSegueIdentifier = @"AddMedication";
+NSString *editMedicationSegueIdentifier = @"EditMedication";
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -23,6 +26,19 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self.tableView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    if (self.isMovingFromParentViewController) { // Tapped "< Dose Details" button
+        // Make sure DoseDetailsTableViewController is dealing with the most recent set of medications
+        [self.delegate medicationsTableViewControllerDidUpdate:self];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -97,12 +113,17 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([[segue identifier] isEqualToString:@"AddMedication"]) {
-        UINavigationController *navController = [segue destinationViewController];
-        MedicationDetailTableViewController *controller = (MedicationDetailTableViewController *)[navController topViewController];
-        
-        controller.fetchedResultsController = self.fetchedResultsController;
-        controller.managedObjectContext = self.managedObjectContext;
+    UINavigationController *navController = [segue destinationViewController];
+    MedicationDetailTableViewController *controller = (MedicationDetailTableViewController *)[navController topViewController];
+    
+    controller.fetchedResultsController = self.fetchedResultsController;
+    controller.managedObjectContext = self.managedObjectContext;
+
+    if ([[segue identifier] isEqualToString:editMedicationSegueIdentifier]) {
+        // Get selected medication
+        UITableViewCell *cell = (UITableViewCell *)sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        controller.medicationToEdit = [self.fetchedResultsController objectAtIndexPath:indexPath];
     }
 }
 

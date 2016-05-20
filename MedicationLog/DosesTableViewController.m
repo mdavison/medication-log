@@ -13,8 +13,10 @@
 
 @end
 
+
 @implementation DosesTableViewController
 
+NSString *addDoseSegueIdentifier = @"AddDose";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -104,11 +106,7 @@
     NSString *medicationName = [[object valueForKey:@"medication"] name];
     NSString *doseAmount = [[object valueForKey:@"amount"] description];
     
-    cell.textLabel.text = [[[[[dateString stringByAppendingString:@" "]
-                            stringByAppendingString:@" "]
-                           stringByAppendingString:doseAmount]
-                           stringByAppendingString:@" "]
-                           stringByAppendingString:medicationName];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@", dateString, doseAmount, medicationName];
 }
 
 
@@ -118,13 +116,12 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    if ([[segue identifier] isEqualToString:@"AddDose"]) {
+    if ([[segue identifier] isEqualToString:addDoseSegueIdentifier]) {
         UINavigationController *navController = [segue destinationViewController];
         DoseDetailTableViewController *controller = (DoseDetailTableViewController *)navController.topViewController;
         
         controller.managedObjectContext = self.managedObjectContext;
-    } else if ([[segue identifier] isEqualToString:@"EditDose"]) {
-        
+        controller.delegate = self;
     }
     
 }
@@ -234,6 +231,12 @@
  }
  */
 
+
+#pragma mark - DoseDetailTableViewControllerDelegate
+
+- (void)DoseDetailTableViewController:(DoseDetailTableViewController *)controller DidFinishWithMedications:(NSArray *)medications {
+    [self.tableView reloadData];
+}
 
 
 @end

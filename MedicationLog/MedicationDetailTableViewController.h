@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "Medication.h"
 
 @interface MedicationDetailTableViewController : UITableViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (weak, nonatomic) IBOutlet UITextField *nameTextField;
+@property (strong, nonatomic) Medication *medicationToEdit;
+
 
 -(IBAction)cancel:(id)sender;
 -(IBAction)save:(id)sender;

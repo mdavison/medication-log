@@ -102,7 +102,6 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
     NSString *medicationNameForCell = [self.medicationsArray[indexPath.row] name];
     
     int incrementedValue = 0;
-    // TODO: handle existing dose
     
     if (self.medicationsDoses[medicationNameForCell] == [NSNumber numberWithInt:0] ) { // first time incrementing
         incrementedValue = 1;
@@ -175,6 +174,7 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
         MedicationsTableViewController *controller = (MedicationsTableViewController *)[segue destinationViewController];
         
         controller.managedObjectContext = self.managedObjectContext;
+        controller.delegate = self;
     }
 }
 
@@ -182,6 +182,9 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 #pragma mark - Actions
 
 - (IBAction)cancelled:(id)sender {
+    // Call delegate method, pass in medicationsArray
+    [self.delegate DoseDetailTableViewController:self DidFinishWithMedications:self.medicationsArray];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -196,14 +199,11 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
             if (medication != nil) {
                 Dose *newDose = [NSEntityDescription insertNewObjectForEntityForName:@"Dose" inManagedObjectContext:self.managedObjectContext];
                 newDose.amount = medicationQuantity;
-                // TODO: get date from datepicker
-                //newDose.date = [NSDate date];
                 newDose.date = self.datePicker.date;
                 newDose.medication = medication;
             }
         }
     }
-    // TODO: self.dose = newDose; ?
     
     NSError *error = nil;
     if (![self.managedObjectContext save:&error]) {
@@ -211,7 +211,18 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
         abort();
     }
     
+    // Call delegate method, pass in medicationsArray
+    [self.delegate DoseDetailTableViewController:self DidFinishWithMedications:self.medicationsArray];
+    
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - MedicationsTableViewControllerDelegate
+
+- (void)medicationsTableViewControllerDidUpdate:(MedicationsTableViewController *)controller {
+    [self setMedicationsArray];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:true];
 }
 
 

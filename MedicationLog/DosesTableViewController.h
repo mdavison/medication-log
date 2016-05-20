@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "DoseDetailTableViewController.h"
 
-@interface DosesTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface DosesTableViewController : UITableViewController <NSFetchedResultsControllerDelegate, DoseDetailTableViewControllerDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
