@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSArray *medicationsArray;
 @property (strong, nonatomic) NSMutableDictionary *medicationsDoses;
 @property (weak, nonatomic) UIDatePicker *datePicker;
+@property (strong, nonatomic) Medication *medication;
 
 @end
 
@@ -31,6 +32,8 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.medication = [[Medication alloc] initWithCoreDataStack:self.coreDataStack];
 
     [self setMedicationsArray];
     [self setMedicationsDoses];
@@ -85,25 +88,28 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.saveButton.enabled = YES;
-    
-    // Get the selected cell
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    // Get the medication from the selected row
-    NSString *medicationNameForCell = [self.medicationsArray[indexPath.row] name];
-    
-    int incrementedValue = 0;
-    
-    if (self.medicationsDoses[medicationNameForCell] == [NSNumber numberWithInt:0] ) { // first time incrementing
-        incrementedValue = 1;
-    } else { // add to existing increment
-        incrementedValue = [self.medicationsDoses[medicationNameForCell] intValue] + 1;
-    }
-    
-    self.medicationsDoses[medicationNameForCell] = [NSNumber numberWithInt:incrementedValue];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", incrementedValue];
+    // Only for medications section
+    if (indexPath.section == 1) {
+        self.saveButton.enabled = YES;
+        
+        // Get the selected cell
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        // Get the medication from the selected row
+        NSString *medicationNameForCell = [self.medicationsArray[indexPath.row] name];
+        
+        int incrementedValue = 0;
+        
+        if (self.medicationsDoses[medicationNameForCell] == [NSNumber numberWithInt:0] ) { // first time incrementing
+            incrementedValue = 1;
+        } else { // add to existing increment
+            incrementedValue = [self.medicationsDoses[medicationNameForCell] intValue] + 1;
+        }
+        
+        self.medicationsDoses[medicationNameForCell] = [NSNumber numberWithInt:incrementedValue];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", incrementedValue];
 
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 
 
@@ -201,7 +207,7 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
         NSNumber *medicationQuantity = [self.medicationsDoses objectForKey:medicationName];
         
         if ([medicationQuantity intValue] > 0) {
-            Medication *medication = [self getMedicationObjectForName:medicationName];
+            Medication *medication = [self.medication getMedicationObjectForName:medicationName];
             
             if (medication != nil) {
                 Dose *newDose = [NSEntityDescription insertNewObjectForEntityForName:@"Dose" inManagedObjectContext:self.coreDataStack.managedObjectContext];
@@ -233,17 +239,10 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 #pragma mark - Helper Methods
 
 - (void)setMedicationsArray {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Medication" inManagedObjectContext:self.coreDataStack.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    
-    self.medicationsArray = [self.coreDataStack.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    self.medicationsArray = [self.medication getAll];
 }
 
-- (void)setMedicationsDoses {
+- (void)setMedicationsDoses { 
     // Add all medications to medicationsDoses dictionary and
     // set initial value to 0
     self.medicationsDoses = [NSMutableDictionary dictionary];
@@ -251,33 +250,6 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
     for (Medication *medication in self.medicationsArray) {
         self.medicationsDoses[medication.name] = [NSNumber numberWithInt:0];
     }
-}
-
-- (Medication *)getMedicationObjectForName:(NSString *)name {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription
-                                   entityForName:@"Medication" inManagedObjectContext:self.coreDataStack.managedObjectContext];
-    fetchRequest.entity = entity;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name == %@", name];
-    
-    NSError *error = nil;
-    NSArray *medications = [self.coreDataStack.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
-    if (error != nil) {
-        // Alert user
-        UIAlertController *alertController = [UIAlertController
-                                              alertControllerWithTitle:[NSString localizedStringWithFormat:@"%@", @"Error"]
-                                              message:[NSString localizedStringWithFormat:@"%@", @"There was a problem saving the dose."]
-                                              preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //abort(); // Could abort here if need to generate crash log
-        }]];
-
-        [self presentViewController:alertController animated:YES completion:nil];
-
-    }
-    
-    return medications.firstObject;
 }
 
 - (void)enableOrDisableSaveButton {

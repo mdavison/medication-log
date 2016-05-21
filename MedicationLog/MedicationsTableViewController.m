@@ -11,6 +11,8 @@
 
 @interface MedicationsTableViewController ()
 
+@property (strong, nonatomic) Medication *medication;
+
 @end
 
 @implementation MedicationsTableViewController
@@ -20,6 +22,8 @@ NSString *editMedicationSegueIdentifier = @"EditMedication";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.medication = [[Medication alloc] initWithCoreDataStack:self.coreDataStack];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -127,21 +131,9 @@ NSString *editMedicationSegueIdentifier = @"EditMedication";
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
+        
+    NSFetchedResultsController *aFetchedResultsController = [self.medication getFetchedResultsController];
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Medication" inManagedObjectContext:self.coreDataStack.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:20];
-    
-    // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-    
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.coreDataStack.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     

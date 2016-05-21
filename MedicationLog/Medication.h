@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "CoreDataStack.h"
 
 @class Dose;
 
@@ -15,7 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Medication : NSManagedObject
 
-- (void)getAll;
+@property (strong, nonatomic) CoreDataStack *coreDataStack;
+
+- (instancetype) initWithCoreDataStack:(CoreDataStack *) coreDataStack;
+- (NSFetchedResultsController *) getFetchedResultsController;
+- (NSArray *)getAll;
+- (Medication *)getMedicationObjectForName:(NSString *)name;
 
 @end
 

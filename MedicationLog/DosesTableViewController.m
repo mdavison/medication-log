@@ -8,8 +8,11 @@
 
 #import "DosesTableViewController.h"
 #import "DoseDetailTableViewController.h"
+#import "Dose.h"
 
 @interface DosesTableViewController ()
+
+@property (strong, nonatomic) Dose *dose;
 
 @end
 
@@ -21,7 +24,9 @@ NSString *addDoseSegueIdentifier = @"AddDose";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    self.dose = [[Dose alloc] initWithCoreDataStack:self.coreDataStack];
+    
+    // Display an Edit button in the navigation bar
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 }
 
@@ -121,24 +126,8 @@ NSString *addDoseSegueIdentifier = @"AddDose";
         return _fetchedResultsController;
     }
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Dose" inManagedObjectContext:self.coreDataStack.managedObjectContext];
-    [fetchRequest setEntity:entity];
+    NSFetchedResultsController *aFetchedResultsController = [self.dose getFetchedResultsController];
     
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:20];
-    
-    // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-    
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    
-    // Relationship paths for prefetching
-    fetchRequest.relationshipKeyPathsForPrefetching = [NSArray arrayWithObject:@"medication"];
-    
-    // Edit the section name key path and cache name if appropriate.
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.coreDataStack.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     

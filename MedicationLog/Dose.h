@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "CoreDataStack.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Dose : NSManagedObject
 
-// Insert code here to declare functionality of your managed object subclass
+@property (strong, nonatomic) CoreDataStack *coreDataStack;
+
+-(instancetype) initWithCoreDataStack:(CoreDataStack *) coreDataStack;
+-(NSFetchedResultsController *) getFetchedResultsController;
 
 @end
 
