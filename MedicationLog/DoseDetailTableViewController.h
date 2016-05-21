@@ -19,6 +19,7 @@
 
 @interface DoseDetailTableViewController : UITableViewController <MedicationsTableViewControllerDelegate>
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (strong, nonatomic) CoreDataStack *coreDataStack;
 @property (weak, nonatomic) id <DoseDetailTableViewControllerDelegate> delegate;
 

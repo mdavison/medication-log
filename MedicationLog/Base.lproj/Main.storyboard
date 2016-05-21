@@ -139,12 +139,15 @@
                                 <action selector="cancelled:" destination="D4B-CE-zQE" id="dJC-jS-5Gf"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="yGJ-IP-B0U">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" systemItem="save" id="yGJ-IP-B0U">
                             <connections>
                                 <action selector="saved:" destination="D4B-CE-zQE" id="e67-q4-pSh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="saveButton" destination="yGJ-IP-B0U" id="DxF-Bl-gv2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jwP-aP-C9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -85,6 +85,8 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.saveButton.enabled = YES;
+    
     // Get the selected cell
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     // Get the medication from the selected row
@@ -154,16 +156,17 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
             self.medicationsDoses[selectedMedication] = 0;
             cell.detailTextLabel.text = @" ";
             [self.tableView setEditing:NO];
+            [self enableOrDisableSaveButton];
     }];
     
     button.backgroundColor = [UIColor orangeColor];
-    
+
     return [[NSArray alloc] initWithObjects:button, nil];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch ([indexPath section]) {
-        case 0:
+        case 0: // Make the row for the date picker bigger
             return 217;
         default:
             return UITableViewAutomaticDimension;
@@ -275,6 +278,19 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
     }
     
     return medications.firstObject;
+}
+
+- (void)enableOrDisableSaveButton {
+    // Disable it to start
+    self.saveButton.enabled = NO;
+    
+    // If there are any items still in medicationsDoses, re-enable it
+    for (NSString *medicationName in self.medicationsDoses) {
+        if (self.medicationsDoses[medicationName] > [NSNumber numberWithInteger:0]) {
+            self.saveButton.enabled = YES;
+            return;
+        }
+    }
 }
 
 
