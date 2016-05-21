@@ -26,6 +26,7 @@
 		909F73851CE683030085C617 /* MedicationLogUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73841CE683030085C617 /* MedicationLogUITests.m */; };
 		909F73941CE685DB0085C617 /* DosesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73931CE685DB0085C617 /* DosesTableViewController.m */; };
 		909F73BB1CE6B55E0085C617 /* DoseDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73BA1CE6B55E0085C617 /* DoseDetailTableViewController.m */; };
+		90F86FE81CF1012000D21757 /* MedicationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F86FE71CF1012000D21757 /* MedicationTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		909F73931CE685DB0085C617 /* DosesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DosesTableViewController.m; sourceTree = "<group>"; };
 		909F73B91CE6B55E0085C617 /* DoseDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoseDetailTableViewController.h; sourceTree = "<group>"; };
 		909F73BA1CE6B55E0085C617 /* DoseDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoseDetailTableViewController.m; sourceTree = "<group>"; };
+		90F86FE71CF1012000D21757 /* MedicationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MedicationTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				909F73791CE683030085C617 /* MedicationLogTests.m */,
+				90F86FE71CF1012000D21757 /* MedicationTests.m */,
 				909F737B1CE683030085C617 /* Info.plist */,
 			);
 			path = MedicationLogTests;
@@ -353,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90F86FE81CF1012000D21757 /* MedicationTests.m in Sources */,
 				909F737A1CE683030085C617 /* MedicationLogTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
