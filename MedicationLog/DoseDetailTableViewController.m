@@ -74,6 +74,7 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
         }
         case 1: {
             DoseDetailMedicationTableViewCell *cell = (DoseDetailMedicationTableViewCell *)[tableView dequeueReusableCellWithIdentifier:doseDetailMedicationCellReuseIdentifier forIndexPath:indexPath];
+            
             NSString *medicationNameForCell = [self.medicationsArray[indexPath.row] name];
             cell.textLabel.text = medicationNameForCell;
             cell.detailTextLabel.text = @" ";
@@ -179,6 +180,16 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
     }
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        if (self.medicationsArray.count == 0) {
+            return @"Please add a medication";
+        }
+    }
+    
+    return @"";
+}
+
 
 #pragma mark - Navigation
 
@@ -232,6 +243,7 @@ NSString *manageMedicationsSegueIdentifier = @"ManageMedications";
 - (void)medicationsTableViewControllerDidUpdate:(MedicationsTableViewController *)controller {
     [self setMedicationsArray];
     [self setMedicationsDoses];
+    [self enableOrDisableSaveButton];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:true];
 }
 

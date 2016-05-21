@@ -21,6 +21,8 @@
     if (self.medicationToEdit != nil) {
         self.nameTextField.text = self.medicationToEdit.name;
     }
+    
+    [self.nameTextField becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {
