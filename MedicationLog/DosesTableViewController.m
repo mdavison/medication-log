@@ -9,6 +9,7 @@
 #import "DosesTableViewController.h"
 #import "DoseDetailTableViewController.h"
 #import "Dose.h"
+#import "DoseTableViewCell.h"
 
 @interface DosesTableViewController ()
 
@@ -19,6 +20,7 @@
 
 @implementation DosesTableViewController
 
+NSString *doseTableViewCellIdentifier = @"DoseCell";
 NSString *addDoseSegueIdentifier = @"AddDose";
 
 - (void)viewDidLoad {
@@ -48,7 +50,7 @@ NSString *addDoseSegueIdentifier = @"AddDose";
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MedicationCell" forIndexPath:indexPath];
+    DoseTableViewCell *cell = (DoseTableViewCell *)[tableView dequeueReusableCellWithIdentifier:doseTableViewCellIdentifier forIndexPath:indexPath];
     NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     [self configureCell:cell withObject:object];
     
@@ -89,18 +91,23 @@ NSString *addDoseSegueIdentifier = @"AddDose";
 }
 */
 
-- (void)configureCell:(UITableViewCell *)cell withObject:(NSManagedObject *)object {
+- (void)configureCell:(DoseTableViewCell *)cell withObject:(NSManagedObject *)object {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateStyle = NSDateFormatterShortStyle;
-    dateFormatter.timeStyle = NSDateFormatterShortStyle;
-    
     NSDate *doseDate = [object valueForKey:@"date"];
     
-    NSString *dateString = [dateFormatter stringFromDate:doseDate];
+    // Get the time and date portions separately
+    dateFormatter.dateStyle = NSDateFormatterShortStyle;
+    NSString *datePortion = [dateFormatter stringFromDate:doseDate];
+    
+    dateFormatter.timeStyle = NSDateFormatterShortStyle;
+    dateFormatter.dateStyle = NSDateFormatterNoStyle;
+    NSString *timePortion = [dateFormatter stringFromDate:doseDate];
+    
     NSString *medicationName = [[object valueForKey:@"medication"] name];
     NSString *doseAmount = [[object valueForKey:@"amount"] description];
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@ %@", dateString, doseAmount, medicationName];
+    cell.dateLabel.text = [NSString stringWithFormat:@"%@\n%@", timePortion, datePortion];
+    cell.medicationLabel.text = [NSString stringWithFormat:@"%@ %@", doseAmount, medicationName];
 }
 
 
