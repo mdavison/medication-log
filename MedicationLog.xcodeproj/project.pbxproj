@@ -27,6 +27,7 @@
 		909F73941CE685DB0085C617 /* DosesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73931CE685DB0085C617 /* DosesTableViewController.m */; };
 		909F73BB1CE6B55E0085C617 /* DoseDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73BA1CE6B55E0085C617 /* DoseDetailTableViewController.m */; };
 		90F86FE81CF1012000D21757 /* MedicationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F86FE71CF1012000D21757 /* MedicationTests.m */; };
+		90F86FEB1CF1E3C600D21757 /* DoseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F86FEA1CF1E3C600D21757 /* DoseTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,8 @@
 		909F73B91CE6B55E0085C617 /* DoseDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoseDetailTableViewController.h; sourceTree = "<group>"; };
 		909F73BA1CE6B55E0085C617 /* DoseDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoseDetailTableViewController.m; sourceTree = "<group>"; };
 		90F86FE71CF1012000D21757 /* MedicationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MedicationTests.m; sourceTree = "<group>"; };
+		90F86FE91CF1E3C600D21757 /* DoseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoseTableViewCell.h; sourceTree = "<group>"; };
+		90F86FEA1CF1E3C600D21757 /* DoseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoseTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +159,8 @@
 				909F73601CE683020085C617 /* AppDelegate.m */,
 				909F73921CE685DB0085C617 /* DosesTableViewController.h */,
 				909F73931CE685DB0085C617 /* DosesTableViewController.m */,
+				90F86FE91CF1E3C600D21757 /* DoseTableViewCell.h */,
+				90F86FEA1CF1E3C600D21757 /* DoseTableViewCell.m */,
 				909F73B91CE6B55E0085C617 /* DoseDetailTableViewController.h */,
 				909F73BA1CE6B55E0085C617 /* DoseDetailTableViewController.m */,
 				904964FA1CED065200602379 /* DatePickerTableViewCell.h */,
@@ -345,6 +350,7 @@
 				904964C31CEBD7B400602379 /* Dose.m in Sources */,
 				909F73611CE683020085C617 /* AppDelegate.m in Sources */,
 				904964FE1CEFAFA200602379 /* CoreDataStack.m in Sources */,
+				90F86FEB1CF1E3C600D21757 /* DoseTableViewCell.m in Sources */,
 				904964C21CEBD7B400602379 /* Dose+CoreDataProperties.m in Sources */,
 				904964FC1CED065200602379 /* DatePickerTableViewCell.m in Sources */,
 				909F735E1CE683020085C617 /* main.m in Sources */,

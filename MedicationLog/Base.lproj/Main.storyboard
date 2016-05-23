@@ -10,27 +10,51 @@
         <scene sceneID="V4b-6j-HD4">
             <objects>
                 <tableViewController id="fTy-eW-2B3" customClass="DosesTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="51d-Sg-Yey">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="102" sectionHeaderHeight="28" sectionFooterHeight="28" id="51d-Sg-Yey">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="separatorColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MedicationCell" textLabel="JsN-zO-miE" style="IBUITableViewCellStyleDefault" id="rWx-vN-gyC">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DoseCell" rowHeight="100" id="rWx-vN-gyC" customClass="DoseTableViewCell">
+                                <rect key="frame" x="0.0" y="92" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rWx-vN-gyC" id="29Q-RT-CL4">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JsN-zO-miE">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Time" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RrD-Sa-25r">
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="98.5"/>
+                                            <color key="backgroundColor" red="0.27450980392156865" green="0.84705882352941175" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="120" id="WnW-yh-dol"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rg6-5w-dxs">
+                                            <rect key="frame" x="128" y="39" width="464" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.082335042894824309" green="0.28366454062685686" blue="0.036323072363324063" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Rg6-5w-dxs" firstAttribute="leading" secondItem="RrD-Sa-25r" secondAttribute="trailing" constant="8" symbolic="YES" id="A15-VW-NuD"/>
+                                        <constraint firstItem="RrD-Sa-25r" firstAttribute="leading" secondItem="29Q-RT-CL4" secondAttribute="leading" id="AXA-zI-eu8"/>
+                                        <constraint firstItem="Rg6-5w-dxs" firstAttribute="centerY" secondItem="29Q-RT-CL4" secondAttribute="centerY" id="LE0-0P-pY2"/>
+                                        <constraint firstItem="RrD-Sa-25r" firstAttribute="top" secondItem="29Q-RT-CL4" secondAttribute="top" id="oYm-g4-LJU"/>
+                                        <constraint firstAttribute="bottom" secondItem="RrD-Sa-25r" secondAttribute="bottom" constant="1" id="qfT-rV-LsU"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Rg6-5w-dxs" secondAttribute="trailing" id="uu7-XR-vLj"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.24313725490196078" green="0.83529411764705885" blue="0.10980392156862745" alpha="0.28584248310810811" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="dateLabel" destination="RrD-Sa-25r" id="oq6-8V-WIG"/>
+                                    <outlet property="medicationLabel" destination="Rg6-5w-dxs" id="UnA-Dh-NGv"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
