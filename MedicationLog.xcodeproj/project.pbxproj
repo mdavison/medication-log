@@ -28,6 +28,7 @@
 		909F73BB1CE6B55E0085C617 /* DoseDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 909F73BA1CE6B55E0085C617 /* DoseDetailTableViewController.m */; };
 		90F86FE81CF1012000D21757 /* MedicationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F86FE71CF1012000D21757 /* MedicationTests.m */; };
 		90F86FEB1CF1E3C600D21757 /* DoseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90F86FEA1CF1E3C600D21757 /* DoseTableViewCell.m */; };
+		90F86FEF1CF33C5500D21757 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F86FEE1CF33C5500D21757 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,8 @@
 		90F86FE71CF1012000D21757 /* MedicationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MedicationTests.m; sourceTree = "<group>"; };
 		90F86FE91CF1E3C600D21757 /* DoseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoseTableViewCell.h; sourceTree = "<group>"; };
 		90F86FEA1CF1E3C600D21757 /* DoseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoseTableViewCell.m; sourceTree = "<group>"; };
+		90F86FED1CF33C3E00D21757 /* MedicationLog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MedicationLog.entitlements; sourceTree = "<group>"; };
+		90F86FEE1CF33C5500D21757 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90F86FEF1CF33C5500D21757 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +139,7 @@
 		909F73501CE683020085C617 = {
 			isa = PBXGroup;
 			children = (
+				90F86FEE1CF33C5500D21757 /* CloudKit.framework */,
 				909F735B1CE683020085C617 /* MedicationLog */,
 				909F73781CE683030085C617 /* MedicationLogTests */,
 				909F73831CE683030085C617 /* MedicationLogUITests */,
@@ -155,6 +160,7 @@
 		909F735B1CE683020085C617 /* MedicationLog */ = {
 			isa = PBXGroup;
 			children = (
+				90F86FED1CF33C3E00D21757 /* MedicationLog.entitlements */,
 				909F735F1CE683020085C617 /* AppDelegate.h */,
 				909F73601CE683020085C617 /* AppDelegate.m */,
 				909F73921CE685DB0085C617 /* DosesTableViewController.h */,
@@ -277,6 +283,11 @@
 					909F73581CE683020085C617 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 2TEP68NZCD;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					909F73741CE683030085C617 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -498,6 +509,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MedicationLog/MedicationLog.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MedicationLog/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -510,6 +522,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MedicationLog/MedicationLog.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MedicationLog/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

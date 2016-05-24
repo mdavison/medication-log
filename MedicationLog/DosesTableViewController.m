@@ -30,6 +30,8 @@ NSString *addDoseSegueIdentifier = @"AddDose";
     
     // Display an Edit button in the navigation bar
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
+    [self addNotificationObservers];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -124,6 +126,60 @@ NSString *addDoseSegueIdentifier = @"AddDose";
     
 }
 
+#pragma mark - Helper Methods
+
+- (void)addNotificationObservers {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(persistentStoreCoordinatorStoresWillChange:)
+                                                 name:NSPersistentStoreCoordinatorStoresWillChangeNotification
+                                               object:self.coreDataStack.managedObjectContext.persistentStoreCoordinator];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(persistentStoreCoordinatorStoresDidChange:)
+                                                 name:NSPersistentStoreCoordinatorStoresDidChangeNotification
+                                               object:self.coreDataStack.managedObjectContext.persistentStoreCoordinator];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(persistentStoreDidImportUbiquitousContentChanges:)
+                                                 name:NSPersistentStoreDidImportUbiquitousContentChangesNotification
+                                               object:self.coreDataStack.managedObjectContext.persistentStoreCoordinator];
+}
+
+
+#pragma mark - Notification handling
+
+- (void)persistentStoreCoordinatorStoresWillChange:(NSNotification*)notification {
+    NSLog(@"persistentStoreCoordinatorStoresWillChange");
+    // Disable UI 
+    [self.view setUserInteractionEnabled:NO];
+    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+    
+    if ([self.coreDataStack.managedObjectContext hasChanges]) {
+        [self.coreDataStack saveContext];
+    } else {
+        dispatch_async( dispatch_get_main_queue(), ^{
+            [self.coreDataStack.managedObjectContext reset];
+            
+            _fetchedResultsController=nil;
+            [self fetchedResultsController];
+        });
+    }
+}
+
+- (void)persistentStoreCoordinatorStoresDidChange:(NSNotification*)notification {
+    NSLog(@"persistentStoreCoordinatorStoresDidChange");
+    // Re-enable UI
+    [self.view setUserInteractionEnabled:YES];
+    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
+    
+    [self.tableView reloadData];
+}
+
+- (void) persistentStoreDidImportUbiquitousContentChanges:(NSNotification*)notification {
+    NSLog(@"persistentStoreDidImportUbiquitousContentChanges in controller");
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - Fetched results controller
 
@@ -153,6 +209,7 @@ NSString *addDoseSegueIdentifier = @"AddDose";
         
         [self presentViewController:alertController animated:YES completion:nil];
     }
+    NSLog(@"got fetchedResultsController");
     
     return _fetchedResultsController;
 }
