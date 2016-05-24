@@ -209,7 +209,6 @@ NSString *addDoseSegueIdentifier = @"AddDose";
         
         [self presentViewController:alertController animated:YES completion:nil];
     }
-    NSLog(@"got fetchedResultsController");
     
     return _fetchedResultsController;
 }
