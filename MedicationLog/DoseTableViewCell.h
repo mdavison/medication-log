@@ -12,5 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *medicationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *quantityLabel;
 
 @end

@@ -109,7 +109,22 @@ NSString *addDoseSegueIdentifier = @"AddDose";
     NSString *doseAmount = [[object valueForKey:@"amount"] description];
     
     cell.dateLabel.text = [NSString stringWithFormat:@"%@\n%@", timePortion, datePortion];
-    cell.medicationLabel.text = [NSString stringWithFormat:@"%@ %@", doseAmount, medicationName];
+    cell.quantityLabel.text = [NSString stringWithFormat:@"%@", doseAmount];
+    cell.medicationLabel.text = [NSString stringWithFormat:@"%@", medicationName];
+    
+    // Draw a circle around the quantity
+//    CAShapeLayer *circleLayer = [CAShapeLayer layer];
+//    
+//    [circleLayer setPath:[[UIBezierPath
+//        bezierPathWithOvalInRect:CGRectMake(
+//                                            0,
+//                                            0,
+//                                            cell.quantityLabel.frame.size.width,
+//                                            cell.quantityLabel.frame.size.width)]
+//                          CGPath]];
+//    
+//    [circleLayer setFillColor:[[UIColor redColor] CGColor]];
+//    [[cell.quantityLabel layer] addSublayer:circleLayer];
 }
 
 
