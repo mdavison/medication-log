@@ -113,18 +113,13 @@ NSString *addDoseSegueIdentifier = @"AddDose";
     cell.medicationLabel.text = [NSString stringWithFormat:@"%@", medicationName];
     
     // Draw a circle around the quantity
-//    CAShapeLayer *circleLayer = [CAShapeLayer layer];
-//    
-//    [circleLayer setPath:[[UIBezierPath
-//        bezierPathWithOvalInRect:CGRectMake(
-//                                            0,
-//                                            0,
-//                                            cell.quantityLabel.frame.size.width,
-//                                            cell.quantityLabel.frame.size.width)]
-//                          CGPath]];
-//    
-//    [circleLayer setFillColor:[[UIColor redColor] CGColor]];
-//    [[cell.quantityLabel layer] addSublayer:circleLayer];
+    CGFloat radius = cell.quantityView.frame.size.width / 2;
+    UIView *circle = [[UIView alloc] initWithFrame:CGRectMake(0, -5, radius * 2, radius * 2)];
+    circle.backgroundColor = [UIColor colorWithRed:70.0/255.0 green:216.0/255.0 blue:36.0/255.0 alpha:1.0];
+    circle.layer.cornerRadius = radius;
+    circle.layer.masksToBounds = YES;
+    [cell.quantityView insertSubview:circle belowSubview:cell.quantityLabel];
+
 }
 
 
