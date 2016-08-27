@@ -26,6 +26,10 @@
     DosesTableViewController *controller = (DosesTableViewController *)navigationController.topViewController;
     controller.coreDataStack = self.coreDataStack;
     
+    // Theme
+    //UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: Theme.navigationTextColor]
+    //UINavigationBar.UIAppearance.titleTextAttributes
+    
     return YES;
 }
 

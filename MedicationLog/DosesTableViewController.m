@@ -25,7 +25,7 @@ NSString *addDoseSegueIdentifier = @"AddDose";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+        
     self.dose = [[Dose alloc] initWithCoreDataStack:self.coreDataStack];
     
     // Display an Edit button in the navigation bar
@@ -115,7 +115,8 @@ NSString *addDoseSegueIdentifier = @"AddDose";
     // Draw a circle around the quantity
     CGFloat radius = cell.quantityView.frame.size.width / 2;
     UIView *circle = [[UIView alloc] initWithFrame:CGRectMake(0, -5, radius * 2, radius * 2)];
-    circle.backgroundColor = [UIColor colorWithRed:70.0/255.0 green:216.0/255.0 blue:36.0/255.0 alpha:1.0];
+    //circle.backgroundColor = [UIColor colorWithRed:102.0/255.0 green:1.0 blue:1.0 alpha:1.0];
+    circle.backgroundColor = [UIColor colorWithRed:1.0 green:128.0/255.0 blue:0 alpha:1.0];
     circle.layer.cornerRadius = radius;
     circle.layer.masksToBounds = YES;
     [cell.quantityView insertSubview:circle belowSubview:cell.quantityLabel];
